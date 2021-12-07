@@ -1,0 +1,69 @@
+﻿<div>
+    <h1 class="display-4 text-center">Inventario de Juguetes</h1>
+    <hr>
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <div class="card mt-4">
+                <div class="card-body" id="app">
+                    <div class="input-group-append" v-if="loadform">
+                        <input type="text" v-model="name" class="form-control form-control-lg" placeholder="Nombre">
+                        <input type="text" v-model="desciption" class="form-control form-control-lg" placeholder="Descripción">
+                        <input type="text" v-model="Restriction" class="form-control form-control-lg" placeholder="Edad">
+                        <input type="text" v-model="company" class="form-control form-control-lg" placeholder="Compañia">
+                        <input type="number" v-model="price" class="form-control form-control-lg" placeholder="Precio">
+                    </div>
+                    <div class="input-group-append" v-if="!loadform">
+                        <button v-on:click="cambiar()" class="btn btn-success btn-lg">Agregar +</button>
+                    </div>
+                    <div class="input-group-append" v-if="agregar">
+                        <button v-on:click="agregarJuguete()" class="btn btn-success btn-lg">Agregar</button>
+                    </div>
+                    <div class="input-group-append" v-if="guardar">
+                        <button v-on:click="estructuraEdicion(id,name,desciption,Restriction,company,price)" class="btn btn-success btn-lg">Guardar</button>
+                    </div>
+                    <br>
+                    <div class="text-center">
+                        <h4 v-if="listJuguetes.length == 0">No hay elementos por mostrar.</h4>
+                    </div>
+                    <table class="table list-group" v-if="loading">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Restrccion de edad</th>
+                                <th scope="col">Compañia</th>
+                                <th scope="col">Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody v-for="(juguete,index) of listJuguetes" :key="index" class="d-flex justify-content-around">
+                            <tr>
+                                <td>{{juguete.Nombre}}</td>
+                                <td>{{juguete.Descripcion}}</td>
+                                <td>{{juguete.RestriccionEdad}}</td>
+                                <td>{{juguete.Compania}}</td>
+                                <td>{{juguete.Precio}}</td>
+                                <td>
+                                    <span class="cursor" v-on:click="cargarEdicion(juguete.Id)">
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                    </span>
+                                    <span class="text-danger cursor" v-on:click="eliminarJuguete(juguete.Id)">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style scoped>
+    .cursor {
+        cursor: pointer;
+    }
+</style>
+@section Scripts{
+<script src="~/Scripts/vuedata.js"></script>
+
+}
