@@ -1,17 +1,18 @@
-﻿var app = new Vue({
+﻿const URL_API = "https://localhost:44357/api/Juguetes/";
+var app = new Vue({
     el: "#app",
     data() {
         return {
             name: '',
             desciption: '',
-            Restriction: 0,
+            Restriction: null,
             company: '',
-            price: 0.00,
+            price: null,
             listJuguetes: [],
             loading: false,
             loadform: false,
             guardar: false,
-            agregar:false
+            agregar: false
         }
     },
     methods: {
@@ -24,25 +25,34 @@
                 Compania: this.company,
                 Precio: this.price
             }
-            this.loading = true;
-            this.loadform = false;
-            this.agregar = false;
-            this.$http.post("https://localhost:44357/api/Juguetes/", juguete).then(response => {
-                this.obtenerJuguetes();
-            }).catch(error => {
-            })
+            this.$http.post(URL_API, juguete)
+
+                .then((response) => {
+                    this.loading = true;
+                    this.loadform = false;
+                    this.agregar = false;
+                    this.obtenerJuguetes();
+                }).catch((error) => {
+                    this.loading = true;
+                    this.loadform = false;
+                    this.agregar = false;
+                    this.obtenerJuguetes();
+                    if (error.status == 400) {
+                        alert(error.body.Message);
+                    }
+                });
             this.juguete = '';
             this.name = '';
             this.desciption = '';
-            this.Restriction = 0;
+            this.Restriction = null;
             this.company = '';
-            this.price = 0.00;
+            this.price = null;
             this.listJuguetes = [];
         },
 
         eliminarJuguete(id) {
             if (confirm("¿Quieres eliminar este elemento?")) {
-                this.$http.delete("https://localhost:44357/api/Juguetes/" + id).then(response => {
+                this.$http.delete(URL_API + id).then(response => {
                     this.obtenerJuguetes();
                 }).catch(error => {
                 });
@@ -52,7 +62,7 @@
             this.loading = false;
             this.loadform = true;
             this.guardar = true;
-            this.$http.get("https://localhost:44357/api/Juguetes/" + id).then(response => {
+            this.$http.get(URL_API + id).then(response => {
                 this.id = response.data.Id,
                     this.name = response.data.Nombre,
                     this.desciption = response.data.Descripcion,
@@ -75,9 +85,9 @@
             this.juguete = '';
             this.name = '';
             this.desciption = '';
-            this.Restriction = 0;
+            this.Restriction = null;
             this.company = '';
-            this.price = 0.00;
+            this.price = null;
             this.listJuguetes = [];
             this.loading = true;
             this.guardar = false;
@@ -85,7 +95,7 @@
         },
         editarJuguete(id, juguete) {
             this.loading = false;
-            this.$http.put("https://localhost:44357/api/Juguetes/" + id, juguete).then(response => {
+            this.$http.put(URL_API + id, juguete).then(response => {
                 this.obtenerJuguetes();
             }).catch(error => {
 
@@ -95,16 +105,19 @@
         cambiar() {
             this.loadform = true;
             this.loading = false;
-            this.agregar= true;
+            this.agregar = true;
         },
 
         obtenerJuguetes() {
             this.loading = true;
             this.guardar = false;
             agregar = false;
-            this.$http.get("https://localhost:44357/api/Juguetes/").then(function (response) {
+            this.$http.get(URL_API).then(function (response) {
                 this.listJuguetes = response.data.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
-            }).catch();
+                console.log(response);
+            }).catch(error => {
+                console.log(error);
+            });
         },
 
     },
@@ -112,3 +125,13 @@
         this.obtenerJuguetes();
     }
 })
+Vue.filter('toCurrency', function (value) {
+    if (typeof value !== "number") {
+        return value;
+    }
+    var formatter = new Intl.NumberFormat('es-MX', {
+        style: 'currency',
+        currency: 'MXN'
+    });
+    return formatter.format(value);
+});

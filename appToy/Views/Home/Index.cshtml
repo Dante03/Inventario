@@ -2,13 +2,13 @@
     <h1 class="display-4 text-center">Inventario de Juguetes</h1>
     <hr>
     <div class="row">
-        <div class="col-lg-8 offset-lg-2">
+        <div class="col-lg-12 offset-lg-2">
             <div class="card mt-4">
                 <div class="card-body" id="app">
                     <div class="input-group-append" v-if="loadform">
                         <input type="text" v-model="name" class="form-control form-control-lg" placeholder="Nombre">
                         <input type="text" v-model="desciption" class="form-control form-control-lg" placeholder="Descripción">
-                        <input type="text" v-model="Restriction" class="form-control form-control-lg" placeholder="Edad">
+                        <input type="number" v-model="Restriction" class="form-control form-control-lg" placeholder="Edad">
                         <input type="text" v-model="company" class="form-control form-control-lg" placeholder="Compañia">
                         <input type="number" v-model="price" class="form-control form-control-lg" placeholder="Precio">
                     </div>
@@ -25,14 +25,14 @@
                     <div class="text-center">
                         <h4 v-if="listJuguetes.length == 0">No hay elementos por mostrar.</h4>
                     </div>
-                    <table class="table list-group" v-if="loading">
+                    <table class="table list-group text-center" v-if="loading">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Descripción</th>
-                                <th scope="col">Restrccion de edad</th>
-                                <th scope="col">Compañia</th>
-                                <th scope="col">Precio</th>
+                                <th class="text-center" scope="col">Nombre</th>
+                                <th class="text-center" scope="col">Descripción</th>
+                                <th class="text-center" scope="col">Restrccion de edad</th>
+                                <th class="text-center" scope="col">Compañia</th>
+                                <th class="text-center" scope="col">Precio</th>
                             </tr>
                         </thead>
                         <tbody v-for="(juguete,index) of listJuguetes" :key="index" class="d-flex justify-content-around">
@@ -41,11 +41,12 @@
                                 <td>{{juguete.Descripcion}}</td>
                                 <td>{{juguete.RestriccionEdad}}</td>
                                 <td>{{juguete.Compania}}</td>
-                                <td>{{juguete.Precio}}</td>
+                                <td>{{juguete.Precio | toCurrency}}</td>
                                 <td>
                                     <span class="cursor" v-on:click="cargarEdicion(juguete.Id)">
                                         <i class="glyphicon glyphicon-edit"></i>
                                     </span>
+                                    </td><td>
                                     <span class="text-danger cursor" v-on:click="eliminarJuguete(juguete.Id)">
                                         <i class="glyphicon glyphicon-trash"></i>
                                     </span>
