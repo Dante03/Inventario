@@ -25,12 +25,13 @@ var app = new Vue({
                 Compania: this.company,
                 Precio: this.price
             }
-            //this.loading = true;
-            //this.loadform = false;
-            //this.agregar = false;
             this.$http.post(URL_API, juguete)
-                .then((response) => {
 
+                .then((response) => {
+                    this.loading = true;
+                    this.loadform = false;
+                    this.agregar = false;
+                    this.obtenerJuguetes();
                 }).catch((error) => {
                     this.loading = true;
                     this.loadform = false;
@@ -113,6 +114,7 @@ var app = new Vue({
             agregar = false;
             this.$http.get(URL_API).then(function (response) {
                 this.listJuguetes = response.data.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
+                console.log(response);
             }).catch(error => {
                 console.log(error);
             });
@@ -123,3 +125,13 @@ var app = new Vue({
         this.obtenerJuguetes();
     }
 })
+Vue.filter('toCurrency', function (value) {
+    if (typeof value !== "number") {
+        return value;
+    }
+    var formatter = new Intl.NumberFormat('es-MX', {
+        style: 'currency',
+        currency: 'MXN'
+    });
+    return formatter.format(value);
+});
