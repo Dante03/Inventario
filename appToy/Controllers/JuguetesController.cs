@@ -67,6 +67,7 @@ namespace appToy.Controllers
         {
             if (!ModelState.IsValid)
             {
+                //return StatusCode(HttpStatusCode.BadRequest);
                 return BadRequest(ModelState);
             }
             db.Juguete.Add(juguete);

@@ -201,7 +201,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202112072152192_Config.cs" />
-    <Compile Include="Migrations\202112072152192_Config.Designer.cs">
+    <Compile Include="Migrations\202112072152192_Config.designer.cs">
       <DependentUpon>202112072152192_Config.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />

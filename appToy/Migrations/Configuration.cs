@@ -10,7 +10,7 @@ namespace appToy.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(JugetesdbContext context)

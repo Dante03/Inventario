@@ -8,7 +8,7 @@
                     <div class="input-group-append" v-if="loadform">
                         <input type="text" v-model="name" class="form-control form-control-lg" placeholder="Nombre">
                         <input type="text" v-model="desciption" class="form-control form-control-lg" placeholder="Descripción">
-                        <input type="text" v-model="Restriction" class="form-control form-control-lg" placeholder="Edad">
+                        <input type="number" v-model="Restriction" class="form-control form-control-lg" placeholder="Edad">
                         <input type="text" v-model="company" class="form-control form-control-lg" placeholder="Compañia">
                         <input type="number" v-model="price" class="form-control form-control-lg" placeholder="Precio">
                     </div>
@@ -46,6 +46,7 @@
                                     <span class="cursor" v-on:click="cargarEdicion(juguete.Id)">
                                         <i class="glyphicon glyphicon-edit"></i>
                                     </span>
+                                    </td><td>
                                     <span class="text-danger cursor" v-on:click="eliminarJuguete(juguete.Id)">
                                         <i class="glyphicon glyphicon-trash"></i>
                                     </span>
