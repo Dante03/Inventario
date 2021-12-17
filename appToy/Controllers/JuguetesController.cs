@@ -4,17 +4,19 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 
 namespace appToy.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class JuguetesController : ApiController
     {
         private JugetesdbContext db = new JugetesdbContext();
 
         public IQueryable<Juguete> GetJuguete()
         {
-            return db.Juguete;
+             return db.Juguete;
         }
         [ResponseType(typeof(Juguete))]
         public IHttpActionResult GetJuguete(int id)
