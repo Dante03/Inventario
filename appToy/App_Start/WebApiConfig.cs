@@ -8,6 +8,7 @@ namespace appToy
         public static void Register(HttpConfiguration config)
         {
             config.MapHttpAttributeRoutes();
+            //config.EnableCors(new AccessPolicyCors());
             config.EnableCors(new AccessPolicyCors());
 
             config.Routes.MapHttpRoute(

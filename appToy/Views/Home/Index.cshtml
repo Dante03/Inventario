@@ -22,7 +22,7 @@
                         <button v-on:click="estructuraEdicion(id,name,desciption,Restriction,company,price)" class="btn btn-success btn-lg">Guardar</button>
                     </div>
                     <br>
-                    <div class="text-center">
+                    <div class="text-center" v-if="loading">
                         <h4 v-if="listJuguetes.length == 0">No hay elementos por mostrar.</h4>
                     </div>
                     <table class="table list-group text-center" v-if="loading">
@@ -64,7 +64,7 @@
         cursor: pointer;
     }
 </style>
-@section Scripts{
+@*@section Scripts{
 <script src="~/Scripts/vuedata.js"></script>
 
-}
+}*@

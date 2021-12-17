@@ -12,6 +12,8 @@ namespace appToy
                         "~/Scripts/vue.js"));
             bundles.Add(new ScriptBundle("~/bundles/vueresource").Include(
                         "~/Scripts/vue-resource.js"));
+            bundles.Add(new ScriptBundle("~/bundles/vue-data").Include(
+                        "~/Scripts/vue-data.js"));
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
